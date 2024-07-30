@@ -1,0 +1,122 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Source Code Pro';
+}
+
+.todo-output__textIsComplete{
+    text-decoration: line-through;
+}
+
+body{
+    font-family: 'Source Code Pro';
+}
+
+.todo__input:focus{
+    outline: none;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header{
+    margin: 10px 0;
+
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.todo-main{
+    border: 1px solid black;
+    padding: 10px;
+
+    width: 450px;
+    min-height: 200px;
+    height: 100%;
+
+    border-radius: 8px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.todo-input-container{
+    margin-bottom: 10px;
+
+    position: relative;
+
+    width: 100%;
+    height: 40px;
+}
+
+.todo-output-container{
+    border: 1px solid black;
+
+    width: 100%;
+    min-height: 200px;
+    height: 100%;
+
+    border-radius: 8px;
+}
+
+.todo__input{
+    width: 100%;
+    height: 100%;
+
+    border: 8px;
+
+    font-size: 17px;
+}
+
+.todo__add-btn{
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    height: 100%;
+    width: 70px;
+
+    border-radius: 8px;
+    border: none;
+}
+
+.todo-output-null{
+
+    font-size: 30px;
+    text-align: center;
+    line-height: 200px;
+    opacity: 10%;
+}
+
+.todo-output-task{
+    padding: 5px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid black;
+    border-radius: 5px;
+
+    background-color: white;
+
+}
+
+.todo-output-btns-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-output__delete-btn{
+    border: none;
+    margin-bottom: 3px;
+}
+
+.todo-output__complete-btn{
+    border: none;
+}

@@ -1,15 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
+    />
     <title>To Do Application</title>
   </head>
   <body>
-    <main>
-      <script src="js/script.js"></script>
-    </main>
+    <div class="container">
+      <header>
+        <h1>My new todo application</h1>
+      </header>
+      <main>
+        <div class="todo-main">
+          <div class="todo-input-container">
+            <input
+              class="todo__input"
+              type="text"
+              placeholder="Your task starts here!"
+            />
+            <button class="todo__add-btn">Add</button>
+          </div>
+          <div class="todo-output-container">
+            <!-- <p class="todo-output-null">NOTHING TO DO YET</p> -->
+            <div class="todo-output-task">
+              <p class="todo-output__text">Some text</p>
+              <div class="todo-output-btns-wrapper">
+                <button class="todo-output__delete-btn">Delete</button>
+                <button class="todo-output__complete-btn">Complete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="js/script.js"></script>
   </body>
 </html>
