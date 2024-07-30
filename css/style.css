@@ -15,6 +15,24 @@ body{
     outline: none;
 }
 
+.todo__create-btn:hover{
+    cursor: pointer;
+    background-color: lightgray;
+    transition: background-color 0.3s ease
+}
+
+.todo-output__delete-btn:hover{
+    cursor: pointer;
+    background-color: lightgray;
+    transition: background-color 0.3s ease
+}
+
+.todo-output__complete-btn:hover{
+    cursor: pointer;
+    background-color: lightgray;
+    transition: background-color 0.3s ease
+}
+
 .container{
     display: flex;
     flex-direction: column;
@@ -72,16 +90,18 @@ header{
     font-size: 17px;
 }
 
-.todo__add-btn{
+.todo__create-btn{
     position: absolute;
     right: 0;
     top: 0;
 
     height: 100%;
-    width: 70px;
+    width: 75px;
 
     border-radius: 8px;
     border: none;
+
+    transition: background-color 0.5s ease
 }
 
 .todo-output-null{
@@ -93,7 +113,7 @@ header{
 }
 
 .todo-output-task{
-    padding: 5px;
+    padding: 0 0 0 5px;
 
     display: flex;
     flex-direction: row;
@@ -110,13 +130,25 @@ header{
 .todo-output-btns-wrapper{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .todo-output__delete-btn{
+    margin-bottom: 7px;
+
+    width: 75px;
+
     border: none;
-    margin-bottom: 3px;
+    border-radius: 5px;
+
+    transition: background-color 0.5s ease
 }
 
 .todo-output__complete-btn{
+    width: 75px;
+
     border: none;
+    border-radius: 5px;
+
+    transition: background-color 0.5s ease
 }
