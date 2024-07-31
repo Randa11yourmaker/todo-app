@@ -1,9 +1,10 @@
 // VARIABLES
 
 const todos = [];
-const createTodoBtn = document.querySelector('.todo__create-btn')
-const inputTodo = document.querySelector('.todo__input')
-const outputTodo = document.querySelector('#todo-output-container')
+const createTodoBtn = document.querySelector('.todo__create-btn');
+const inputTodo = document.querySelector('.todo__input');
+const outputTodo = document.querySelector('#todo-output-container');
+const deleteTodoBtn = document.querySelector('.todo-output__delete-btn');
 
 // FUNCTIONS
 
@@ -27,6 +28,7 @@ function createTodo (text) {
     }
 
     todos.push(todo);
+
     // RENDER TASKS
     render();
     // SAVE INTO LOCALSTORAGE 
@@ -34,16 +36,67 @@ function createTodo (text) {
 }
 
 function deleteTodo (id) {
-    const indexToDelete = todos.findIndex(todo => todo.id === id);
-    todos.splice(indexToDelete, 1);
+    const todoToDelete = todos.findIndex(todo => todo.id === id);
+    todos.splice(todoToDelete, 1);
 
     // UPDATE LOCALSTORAGE AFTER DELETE
-    localStorageUpdate(id);
+    localStorageDeleteTodo(id);
+
+    render();
 
     return todos;
 }
 
-function localStorageUpdate (id) {
+function completeTodo (id) {
+    const todoToComplete = todos.find(todoToComplete => todoToComplete.id === id);
+    if (todoToComplete) {
+        todoToComplete.isCompleted = !todoToComplete.isCompleted;
+    }
+
+    localStorageCompleteTodo(id);
+
+    render();
+}
+
+function render() {
+    let html;
+
+    todos.length === 0 ? 
+        html = '<p class="todo-output-null">NOTHING TO DO YET</p>' :
+        html = '';
+
+    todos.forEach(todo => {
+
+        if(todo.isCompleted === false) {
+            html += `
+                <div class="todo-output-task">
+                    <p class="todo-output__text">${todo.text}</p>
+                    <div class="todo-output-btns-wrapper">
+                        <button onclick="deleteTodo('${todo.id}')" class="todo-output__delete-btn">Delete</button>
+                        <button onclick="completeTodo('${todo.id}')" class="todo-output__complete-btn">Complete</button>
+                    </div>
+                </div>
+                `
+        }else{
+            html += `
+                <div class="todo-output-task">
+                    <p class="todo-output__text todo-output__textIsComplete">${todo.text}</p>
+                    <div class="todo-output-btns-wrapper">
+                        <button onclick="deleteTodo('${todo.id}')" class="todo-output__delete-btn">Delete</button>
+                        <button onclick="completeTodo('${todo.id}')" class="todo-output__complete-btn">Complete</button>
+                    </div>
+                </div>
+                `
+        }
+        
+    })
+
+    outputTodo.innerHTML = html;
+}
+
+// LOCALSTORAGE FUNCTIONS
+
+function localStorageDeleteTodo (id) {
     Object.keys(localStorage).forEach(key => {
         if (key === id) {
             localStorage.removeItem(key);
@@ -51,22 +104,14 @@ function localStorageUpdate (id) {
     })
 }
 
-function render() {
-    let html = ''
+function localStorageCompleteTodo (id) {
+    const itemToComplete = JSON.parse(localStorage.getItem(id));
 
-    todos.forEach(todo => {
-        html += `
-                <div class="todo-output-task">
-                    <p class="todo-output__text">${todo.text}</p>
-                    <div class="todo-output-btns-wrapper">
-                        <button class="todo-output__delete-btn">Delete</button>
-                        <button class="todo-output__complete-btn">Complete</button>
-                    </div>
-                </div>
-                `
-    })
+    if (itemToComplete) {
+        itemToComplete.isCompleted = !itemToComplete.isCompleted;
 
-    outputTodo.innerHTML = html;
+        localStorage.setItem(`${id}`, JSON.stringify(itemToComplete));
+    }
 }
 
 // LISTENERS
