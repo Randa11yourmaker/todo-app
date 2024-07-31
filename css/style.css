@@ -72,10 +72,10 @@ header{
 }
 
 .todo-output-container{
-    border: 1px solid black;
+    border: 2px solid black;
 
     width: 100%;
-    min-height: 200px;
+    min-height: 185px;
     height: 100%;
 
     border-radius: 8px;
@@ -108,7 +108,7 @@ header{
 
     font-size: 30px;
     text-align: center;
-    line-height: 200px;
+    line-height: 182px;
     opacity: 10%;
 }
 
