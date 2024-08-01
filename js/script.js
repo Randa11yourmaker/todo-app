@@ -4,7 +4,8 @@ const todos = [];
 const createTodoBtn = document.querySelector('.todo__create-btn');
 const inputTodo = document.querySelector('.todo__input');
 const outputTodo = document.querySelector('#todo-output-container');
-const deleteTodoBtn = document.querySelector('.todo-output__delete-btn');
+// const deleteTodoBtn = document.querySelector('.todo-output__delete-btn');
+// const clearCompletedBtn = document.querySelector('.todo__clearComplete-btn');
 
 // FUNCTIONS
 
@@ -45,6 +46,12 @@ function deleteTodo (id) {
     render();
 
     return todos;
+}
+
+function clearCompleted() {
+    let todoToClear = todos.filter((todo) => todo.isCompleted === false);
+
+    return todoToClear;
 }
 
 function completeTodo (id) {
@@ -104,6 +111,19 @@ function localStorageDeleteTodo (id) {
     })
 }
 
+function localStorageClearCompleted () {
+    todos.forEach(todo => {
+        let todoToCheck = JSON.parse(localStorage.getItem(todo.id))
+        if (todoToCheck.isCompleted === true) {
+            localStorage.removeItem(todo.id);
+        }
+    })
+
+    clearCompleted();
+
+    render();
+}
+
 function localStorageCompleteTodo (id) {
     const itemToComplete = JSON.parse(localStorage.getItem(id));
 
@@ -112,6 +132,8 @@ function localStorageCompleteTodo (id) {
 
         localStorage.setItem(`${id}`, JSON.stringify(itemToComplete));
     }
+
+    render();
 }
 
 // LISTENERS
