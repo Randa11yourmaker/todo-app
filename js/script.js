@@ -157,7 +157,16 @@ function localStorageCompleteTodo (id) {
 
 document.addEventListener('DOMContentLoaded', loadTodos);
 
-createTodoBtn.addEventListener('click', () => {
+document.addEventListener('keyup', (event) => {
+    if (event.key === 'Enter') {
+        let text = inputTodo.value;
+
+        createTodo(text);
+        inputTodo.value = '';
+    }
+});
+
+createTodoBtn.addEventListener('click', function() {
     let text = inputTodo.value;
 
     createTodo(text);
