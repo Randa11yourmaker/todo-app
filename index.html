@@ -31,6 +31,7 @@
           <div id="todo-output-container" class="todo-output-container">
             <!-- <div class="todo-output-task">
               <p class="todo-output__text">Some text</p>
+              <p class="todo-output__date">2 января 20:00</p>
               <div class="todo-output-btns-wrapper">
                 <button class="todo-output__delete-btn">Delete</button>
                 <button class="todo-output__complete-btn">Complete</button>
@@ -38,7 +39,9 @@
             </div> -->
           </div>
           <div class="todo__clearComplete-btn-wrapper">
-            <button class="todo__clearComplete-btn">Clear completed</button>
+            <button onclick="clearCompleted()" class="todo__clearComplete-btn">
+              Clear completed
+            </button>
           </div>
         </div>
       </main>

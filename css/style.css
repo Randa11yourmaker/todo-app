@@ -161,3 +161,13 @@ header{
 
     transition: background-color 0.5s ease
 }
+
+.todo-output__date{
+    margin-left: auto;
+    margin-right: 3px;
+
+    font-weight: 700;
+    opacity: 30%;
+    font-size: 12px;
+    word-spacing: -0.2em;    
+}

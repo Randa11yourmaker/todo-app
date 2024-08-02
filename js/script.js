@@ -4,8 +4,7 @@ const todos = [];
 const createTodoBtn = document.querySelector('.todo__create-btn');
 const inputTodo = document.querySelector('.todo__input');
 const outputTodo = document.querySelector('#todo-output-container');
-// const deleteTodoBtn = document.querySelector('.todo-output__delete-btn');
-// const clearCompletedBtn = document.querySelector('.todo__clearComplete-btn');
+
 
 // FUNCTIONS
 
@@ -24,6 +23,7 @@ function loadTodos() {
 function createTodo (text) {
     const todo = {
         id: `${Date.now()}`,
+        date: getDate(),
         text: text,
         isCompleted: false,
     }
@@ -43,15 +43,20 @@ function deleteTodo (id) {
     // UPDATE LOCALSTORAGE AFTER DELETE
     localStorageDeleteTodo(id);
 
+    // RENDER TASKS
     render();
-
-    return todos;
 }
 
 function clearCompleted() {
-    let todoToClear = todos.filter((todo) => todo.isCompleted === false);
 
-    return todoToClear;
+    for (let i = todos.length - 1; i >= 0; i--){
+        if (todos[i].isCompleted === true) {
+            localStorage.removeItem(todos[i].id);
+            todos.splice(i, 1);
+        }
+    }
+
+    render();
 }
 
 function completeTodo (id) {
@@ -72,34 +77,52 @@ function render() {
         html = '<p class="todo-output-null">NOTHING TO DO YET</p>' :
         html = '';
 
-    todos.forEach(todo => {
+    const sortedTodos = todos.sort((a, b) => a.id - b.id);
+    
+    sortedTodos.forEach(todo => {
 
         if(todo.isCompleted === false) {
             html += `
-                <div class="todo-output-task">
-                    <p class="todo-output__text">${todo.text}</p>
-                    <div class="todo-output-btns-wrapper">
-                        <button onclick="deleteTodo('${todo.id}')" class="todo-output__delete-btn">Delete</button>
-                        <button onclick="completeTodo('${todo.id}')" class="todo-output__complete-btn">Complete</button>
+                    <div class="todo-output-task">
+                        <p class="todo-output__text">${todo.text}</p>
+                        <p class="todo-output__date">${todo.date}</p>
+                        <div class="todo-output-btns-wrapper">
+                            <button onclick="deleteTodo('${todo.id}')" class="todo-output__delete-btn">Delete</button>
+                            <button onclick="completeTodo('${todo.id}')" class="todo-output__complete-btn">Complete</button>
+                        </div>
                     </div>
-                </div>
-                `
+                    `
         }else{
             html += `
-                <div class="todo-output-task">
-                    <p class="todo-output__text todo-output__textIsComplete">${todo.text}</p>
-                    <div class="todo-output-btns-wrapper">
-                        <button onclick="deleteTodo('${todo.id}')" class="todo-output__delete-btn">Delete</button>
-                        <button onclick="completeTodo('${todo.id}')" class="todo-output__complete-btn">Complete</button>
+                    <div class="todo-output-task">
+                        <p class="todo-output__text todo-output__textIsComplete">${todo.text}</p>
+                        <p class="todo-output__date">${todo.date}</p>
+                        <div class="todo-output-btns-wrapper">
+                            <button onclick="deleteTodo('${todo.id}')" class="todo-output__delete-btn">Delete</button>
+                            <button onclick="completeTodo('${todo.id}')" class="todo-output__complete-btn">Complete</button>
+                        </div>
                     </div>
-                </div>
-                `
+                    `
         }
         
     })
 
     outputTodo.innerHTML = html;
 }
+
+function getDate() {
+    let month = ["января", "февраля", "марта", "апреля",
+        "мая", "июня", "июля", "августа",
+        "сентября", "октября", "ноября", "декабря"]
+
+    let date = new Date();
+    let dateMonth = month[date.getMonth()];
+    let dateTime = `${date.getHours()}:${date.getMinutes()} `;
+
+    return `${date.getDate()} ${dateMonth} ${dateTime}`;
+    
+}
+
 
 // LOCALSTORAGE FUNCTIONS
 
@@ -111,18 +134,14 @@ function localStorageDeleteTodo (id) {
     })
 }
 
-function localStorageClearCompleted () {
-    todos.forEach(todo => {
-        let todoToCheck = JSON.parse(localStorage.getItem(todo.id))
-        if (todoToCheck.isCompleted === true) {
-            localStorage.removeItem(todo.id);
-        }
-    })
-
-    clearCompleted();
-
-    render();
-}
+// function localStorageClearCompleted () {
+//     todos.forEach(todo => {
+//         let todoToCheck = JSON.parse(localStorage.getItem(todo.id))
+//         if (todoToCheck.isCompleted === true) {
+//             localStorage.removeItem(todo.id);
+//         }
+//     })
+// }
 
 function localStorageCompleteTodo (id) {
     const itemToComplete = JSON.parse(localStorage.getItem(id));
@@ -132,8 +151,6 @@ function localStorageCompleteTodo (id) {
 
         localStorage.setItem(`${id}`, JSON.stringify(itemToComplete));
     }
-
-    render();
 }
 
 // LISTENERS
