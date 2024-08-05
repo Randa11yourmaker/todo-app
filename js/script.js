@@ -8,8 +8,6 @@ const outputTodo = document.querySelector('#todo-output-container');
 
 // FUNCTIONS
 
-
-// LOAD TODOS FROM LOCALSTORAGE
 function loadTodos() {
     for (let i = 0; i < localStorage.length; i++) {
         let todoId = localStorage.key(i);
@@ -30,9 +28,8 @@ function createTodo (text) {
 
     todos.push(todo);
 
-    // RENDER TASKS
     render();
-    // SAVE INTO LOCALSTORAGE 
+
     localStorage.setItem((`${todo.id}`), JSON.stringify(todo));    
 }
 
@@ -40,15 +37,12 @@ function deleteTodo (id) {
     const todoToDelete = todos.findIndex(todo => todo.id === id);
     todos.splice(todoToDelete, 1);
 
-    // UPDATE LOCALSTORAGE AFTER DELETE
     localStorageDeleteTodo(id);
 
-    // RENDER TASKS
     render();
 }
 
 function clearCompleted() {
-
     for (let i = todos.length - 1; i >= 0; i--){
         if (todos[i].isCompleted === true) {
             localStorage.removeItem(todos[i].id);
@@ -113,16 +107,14 @@ function render() {
 function getDate() {
     let month = ["января", "февраля", "марта", "апреля",
         "мая", "июня", "июля", "августа",
-        "сентября", "октября", "ноября", "декабря"]
+        "сентября", "октября", "ноября", "декабря"];
 
     let date = new Date();
     let dateMonth = month[date.getMonth()];
     let dateTime = `${date.getHours()}:${date.getMinutes()} `;
 
     return `${date.getDate()} ${dateMonth} ${dateTime}`;
-    
 }
-
 
 // LOCALSTORAGE FUNCTIONS
 
@@ -133,15 +125,6 @@ function localStorageDeleteTodo (id) {
         }
     })
 }
-
-// function localStorageClearCompleted () {
-//     todos.forEach(todo => {
-//         let todoToCheck = JSON.parse(localStorage.getItem(todo.id))
-//         if (todoToCheck.isCompleted === true) {
-//             localStorage.removeItem(todo.id);
-//         }
-//     })
-// }
 
 function localStorageCompleteTodo (id) {
     const itemToComplete = JSON.parse(localStorage.getItem(id));
