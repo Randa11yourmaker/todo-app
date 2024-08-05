@@ -160,17 +160,31 @@ document.addEventListener('DOMContentLoaded', loadTodos);
 document.addEventListener('keyup', (event) => {
     if (event.key === 'Enter') {
         let text = inputTodo.value;
+        let isTextEmpty = inputTodo.value.trim();
 
-        createTodo(text);
-        inputTodo.value = '';
+        if(isTextEmpty){
+            createTodo(text);
+            inputTodo.value = '';
+            
+        }else{
+            alert('Nothing to add')
+            inputTodo.value = '';
+        }
     }
 });
 
 createTodoBtn.addEventListener('click', function() {
-    let text = inputTodo.value;
+    let isTextEmpty = inputTodo.value.trim();
 
-    createTodo(text);
-    inputTodo.value = '';
+    if(isTextEmpty){
+        let text = inputTodo.value;
+
+        createTodo(text);
+        inputTodo.value = '';
+    }else{
+        alert('Nothing to add');
+        inputTodo.value = '';
+    }
 })
 
 
