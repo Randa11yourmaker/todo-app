@@ -81,8 +81,8 @@ function render() {
                         <p class="todo-output__text">${todo.text}</p>
                         <p class="todo-output__date">${todo.date}</p>
                         <div class="todo-output-btns-wrapper">
-                            <button onclick="deleteTodo('${todo.id}')" class="todo-output__delete-btn">Delete</button>
-                            <button onclick="completeTodo('${todo.id}')" class="todo-output__complete-btn">Complete</button>
+                            <button onclick="deleteTodo('${todo.id}')" class="todo-output__delete-btn"></button>
+                            <button onclick="completeTodo('${todo.id}')" class="todo-output__complete-btn"></button>
                         </div>
                     </div>
                     `
@@ -92,8 +92,8 @@ function render() {
                         <p class="todo-output__text todo-output__textIsComplete">${todo.text}</p>
                         <p class="todo-output__date">${todo.date}</p>
                         <div class="todo-output-btns-wrapper">
-                            <button onclick="deleteTodo('${todo.id}')" class="todo-output__delete-btn">Delete</button>
-                            <button onclick="completeTodo('${todo.id}')" class="todo-output__complete-btn">Complete</button>
+                            <button onclick="deleteTodo('${todo.id}')" class="todo-output__delete-btn"></button>
+                            <button onclick="completeTodo('${todo.id}')" class="todo-output__complete-btn"></button>
                         </div>
                     </div>
                     `
@@ -105,9 +105,9 @@ function render() {
 }
 
 function getDate() {
-    let month = ["января", "февраля", "марта", "апреля",
-        "мая", "июня", "июля", "августа",
-        "сентября", "октября", "ноября", "декабря"];
+    let month = ["January", "February", "March", "April",
+                "May", "June", "July", "August",
+                "September", "October", "November", "December"];
 
     let date = new Date();
     let dateMonth = month[date.getMonth()];
@@ -119,11 +119,7 @@ function getDate() {
 // LOCALSTORAGE FUNCTIONS
 
 function localStorageDeleteTodo (id) {
-    Object.keys(localStorage).forEach(key => {
-        if (key === id) {
-            localStorage.removeItem(key);
-        }
-    })
+    localStorage.removeItem(id);
 }
 
 function localStorageCompleteTodo (id) {
